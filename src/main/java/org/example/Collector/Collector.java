@@ -1,2 +1,5 @@
-package org.example.Collector;public interface Collector {
+package org.example.Collector;
+
+public interface Collector<T> {
+     T collect();
 }

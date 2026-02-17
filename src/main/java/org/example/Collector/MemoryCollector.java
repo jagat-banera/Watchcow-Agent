@@ -1,14 +1,23 @@
 package org.example.Collector;
 
-public class MemoryMetricsPacking {
+import com.sun.management.OperatingSystemMXBean;
+import org.example.Assembler.DiskMetrics;
+import org.example.Assembler.MemoryMetrics;
 
-    private final String totalMemory;
-    private final String freeMemory ;
-    private final String usedMemory ;
+import java.io.File;
+import java.lang.management.ManagementFactory;
 
-    public MemoryMetricsPacking(String totalMemory, String freeMemory, String usedMemory) {
-        this.totalMemory = totalMemory;
-        this.freeMemory = freeMemory;
-        this.usedMemory = usedMemory;
+public class MemoryCollector implements Collector<MemoryMetrics>{
+
+    @Override
+    public MemoryMetrics collect() {
+
+        OperatingSystemMXBean bean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+
+        double totalMemory = bean.getTotalMemorySize();
+        double freeMemory = bean.getFreeMemorySize();
+        double usedMemory = totalMemory - freeMemory ;
+
+        return new MemoryMetrics(totalMemory,freeMemory,usedMemory);
     }
 }

@@ -1,11 +1,19 @@
 package org.example.Collector;
 
-public class CpuMetricsPacking {
+import com.sun.management.OperatingSystemMXBean;
+import org.example.Assembler.CpuMetrics;
 
-    private final String cpuLoad;
+import java.lang.management.ManagementFactory;
 
+public class CpuCollector implements Collector<CpuMetrics> {
 
-    public CpuMetricsPacking(String cpuLoad) {
-        this.cpuLoad = cpuLoad;
+    @Override
+    public CpuMetrics collect() {
+        OperatingSystemMXBean bean =
+                (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+
+        double cpuLoad = bean.getCpuLoad();
+
+        return new CpuMetrics(cpuLoad);
     }
 }

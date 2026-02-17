@@ -1,11 +1,21 @@
 package org.example.Collector;
 
-public class LoadAveragePacking {
+import com.sun.management.OperatingSystemMXBean;
+import org.example.Assembler.CpuMetrics;
+import org.example.Assembler.LoadAverageMetrics;
 
-    private final String loadAverage;
+import java.lang.management.ManagementFactory;
+
+public class LoadCollector implements Collector<LoadAverageMetrics>{
 
 
-    public LoadAveragePacking(String loadAverage) {
-        this.loadAverage = loadAverage;
+    @Override
+    public LoadAverageMetrics collect() {
+        OperatingSystemMXBean bean =
+                (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+
+        double loadAverage = bean.getSystemLoadAverage();
+
+        return new LoadAverageMetrics(loadAverage);
     }
 }

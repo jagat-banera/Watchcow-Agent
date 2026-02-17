@@ -1,15 +1,23 @@
 package org.example.Collector;
 
-public class DiskMetricsPacking {
+import com.sun.management.OperatingSystemMXBean;
+import org.example.Assembler.CpuMetrics;
+import org.example.Assembler.DiskMetrics;
 
-    private final String totalDiskSpace;
-    private final String freeDiskSpace;
-    private final String usedDiskSpace;
+import java.io.File;
+import java.lang.management.ManagementFactory;
 
+public class DiskCollector implements Collector<DiskMetrics>{
 
-    public DiskMetricsPacking(String totalDiskSpace, String freeDiskSpace, String usedDiskSpace) {
-        this.totalDiskSpace = totalDiskSpace;
-        this.freeDiskSpace = freeDiskSpace;
-        this.usedDiskSpace = usedDiskSpace;
+    @Override
+    public DiskMetrics collect() {
+
+        File disk = new File("/");
+
+        double totalDiskSpace = disk.getTotalSpace();
+        double freeDiskSpace = disk.getFreeSpace();
+        double usedDiskSpace = totalDiskSpace - freeDiskSpace ;
+
+        return new DiskMetrics(totalDiskSpace,freeDiskSpace,usedDiskSpace);
     }
 }
