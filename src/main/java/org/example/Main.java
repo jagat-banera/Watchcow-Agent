@@ -11,8 +11,10 @@ import org.example.Collector.MemoryCollector;
 import org.example.Config.AgentConfig;
 import org.example.Config.PropertyLoader;
 
+import java.net.UnknownHostException;
+
 public class Main {
-    public static void main(String[] args) throws JsonProcessingException {
+    public static void main(String[] args) throws JsonProcessingException, UnknownHostException {
 
         DataAssembler assembler = new DataAssembler(
                 new CpuCollector(),
@@ -26,17 +28,11 @@ public class Main {
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(metrics);
 
-        AgentConfig agentConfig = new AgentConfig(new PropertyLoader());
+
 
         System.out.println(json);
 
-        System.out.println("Agent ID : " + agentConfig.getAgentId());
 
-        System.out.println("Agent Version : " + agentConfig.getVersion());
-
-        System.out.println("Interval : " + agentConfig.getIntervalSeconds());
-
-        System.out.println("URL : " + agentConfig.getServerUrl());
 
 
     }
