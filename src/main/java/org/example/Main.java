@@ -10,11 +10,12 @@ import org.example.Collector.LoadCollector;
 import org.example.Collector.MemoryCollector;
 import org.example.Config.AgentConfig;
 import org.example.Config.PropertyLoader;
+import org.example.Scheduler.AgentScheduler;
 
 import java.net.UnknownHostException;
 
 public class Main {
-    public static void main(String[] args) throws JsonProcessingException, UnknownHostException {
+    public static void main(String[] args)  {
 
         DataAssembler assembler = new DataAssembler(
                 new CpuCollector(),
@@ -23,14 +24,19 @@ public class Main {
                 new LoadCollector()
         );
 
-        ServerMetrics metrics = assembler.collectAll();
+        AgentConfig agentConfig = new AgentConfig(new PropertyLoader());
 
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(metrics);
+        AgentScheduler agentScheduler = new AgentScheduler(assembler,agentConfig);
+
+        agentScheduler.start();
 
 
 
-        System.out.println(json);
+
+
+
+
+
 
 
 
