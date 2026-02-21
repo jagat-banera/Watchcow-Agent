@@ -10,6 +10,7 @@ public class AgentConfig {
     private final String serverUrl ;
 
 
+
     public AgentConfig(PropertyLoader propertyLoader) {
         this.agentId = propertyLoader.getProperty("agent.id");
         this.version = propertyLoader.getProperty("agent.version");
