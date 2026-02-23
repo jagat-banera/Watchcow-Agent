@@ -1,14 +1,9 @@
 package org.example.Scheduler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.Assembler.DataAssembler;
-import org.example.Assembler.ServerMetrics;
 import org.example.Config.AgentConfig;
 import org.example.Config.PropertyLoader;
 import org.example.Service.SendMetrics;
-
-import java.net.URL;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
