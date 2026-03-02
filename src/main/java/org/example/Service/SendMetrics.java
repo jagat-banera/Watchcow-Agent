@@ -22,10 +22,12 @@ public class SendMetrics {
         this.agentConfig = agentConfig;
     }
 
-    public String SendHttpRequest() throws IOException, URISyntaxException, InterruptedException {
-
+    public void SendHttpRequest() throws IOException, URISyntaxException, InterruptedException {
+        try {
         HttpClient client = HttpClient.newBuilder().build();
         ObjectMapper mapper = new ObjectMapper();
+
+        System.out.println("Sending the Metrics");
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI(agentConfig.getServerUrl()))
@@ -36,11 +38,16 @@ public class SendMetrics {
                         )
                 )).build();
 
-        HttpResponse<String> response = client.send(request,HttpResponse.BodyHandlers.ofString());
 
-        System.out.println(response.body());
 
-        return response.toString() ;
+            HttpResponse<String> response = client.send(request,HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+        }
+
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
 
     }
 

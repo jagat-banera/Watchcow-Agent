@@ -8,7 +8,13 @@ public class PropertyLoader {
 
     private final Properties properties = new Properties();
 
-    public PropertyLoader()  {
+    public PropertyLoader(){
+        FilePropertyLoader();
+        OverrideSystemProperties();
+    }
+
+    public void FilePropertyLoader()  {
+
         try(InputStream input =
                 getClass().getClassLoader().getResourceAsStream("agent.properties")){
             if(input==null){
@@ -16,9 +22,21 @@ public class PropertyLoader {
             }
 
             properties.load(input);
+            System.out.println("Property : " + properties.getProperty("server.url"));
         }
         catch (Exception e){
             throw new RuntimeException("Failed to Load File" , e);
+        }
+    }
+
+
+    public void OverrideSystemProperties(){
+
+        //  System Property Overide
+        String ingestionUrl = System.getProperty("server.url");
+        if(ingestionUrl != null){
+            properties.setProperty("server.url",ingestionUrl);
+            System.out.println("Property : " + properties.getProperty("server.url"));
         }
     }
 

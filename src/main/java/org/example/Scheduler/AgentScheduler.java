@@ -7,6 +7,7 @@ import org.example.Service.SendMetrics;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class AgentScheduler {
 
@@ -26,6 +27,7 @@ public class AgentScheduler {
             try {
                 // Collect the Metrcis
                 var metrics = assembler.collectAll();
+                System.out.println("Metrcis Collected");
 
                 // Send the request
                 SendMetrics sendMetrics = new SendMetrics(metrics , new AgentConfig(new PropertyLoader()));
@@ -34,7 +36,7 @@ public class AgentScheduler {
 
             }
             catch (Exception e){
-                System.out.println(e);
+                e.printStackTrace();
             }
         };
 
