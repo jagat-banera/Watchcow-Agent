@@ -4,15 +4,18 @@ import org.example.Assembler.DataAssembler;
 import org.example.Config.AgentConfig;
 import org.example.Config.PropertyLoader;
 import org.example.Service.SendMetrics;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 public class AgentScheduler {
 
     private final DataAssembler assembler ;
     private final AgentConfig config ;
+    private static final Logger logger = LoggerFactory.getLogger("AgentScheduler.class");
 
     private final ScheduledExecutorService scheduler =
             Executors.newSingleThreadScheduledExecutor();
@@ -27,16 +30,17 @@ public class AgentScheduler {
             try {
                 // Collect the Metrcis
                 var metrics = assembler.collectAll();
-                System.out.println("Metrcis Collected");
+                logger.debug("Metrics Collected");
+
 
                 // Send the request
                 SendMetrics sendMetrics = new SendMetrics(metrics , new AgentConfig(new PropertyLoader()));
-
                 sendMetrics.SendHttpRequest();
+                logger.debug("Request Sent Successfully");
 
             }
             catch (Exception e){
-                e.printStackTrace();
+                logger.error("Error Occurred While Sending Metrics : {} " , e.toString());
             }
         };
 
@@ -49,7 +53,7 @@ public class AgentScheduler {
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             scheduler.shutdown();
-            System.out.println("Agent shutting down...");
+
         }));
 
     }

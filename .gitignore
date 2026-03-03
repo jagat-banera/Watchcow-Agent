@@ -8,6 +8,9 @@ target/
 .idea/
 *.iml
 
+#Logs
+logs
+
 # OS
 .DS_Store
 Thumbs.db

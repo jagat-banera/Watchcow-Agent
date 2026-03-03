@@ -1,10 +1,16 @@
 package org.example.Config;
 
+import org.example.CustomExceptions.PropertyFileException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertyLoader {
+
+    private static final Logger logger = LoggerFactory.getLogger(PropertyLoader.class.toString());
 
     private final Properties properties = new Properties();
 
@@ -22,10 +28,9 @@ public class PropertyLoader {
             }
 
             properties.load(input);
-            System.out.println("Property : " + properties.getProperty("server.url"));
         }
         catch (Exception e){
-            throw new RuntimeException("Failed to Load File" , e);
+            throw new PropertyFileException("Failed to Load File" , e);
         }
     }
 
@@ -36,7 +41,7 @@ public class PropertyLoader {
         String ingestionUrl = System.getProperty("server.url");
         if(ingestionUrl != null){
             properties.setProperty("server.url",ingestionUrl);
-            System.out.println("Property : " + properties.getProperty("server.url"));
+
         }
     }
 
