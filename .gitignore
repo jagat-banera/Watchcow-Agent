@@ -11,6 +11,9 @@ target/
 #Logs
 logs
 
+#Files
+dependency-reduced-pom.xml
+
 # OS
 .DS_Store
 Thumbs.db
