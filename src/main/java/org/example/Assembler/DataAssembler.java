@@ -1,5 +1,6 @@
 package org.example.Assembler;
 
+import org.example.Assembler.NetworkDataAssembler.NetworkMetrcis;
 import org.example.Collector.*;
 import org.example.Config.AgentConfig;
 import org.example.Config.AgentInfo;
@@ -17,12 +18,14 @@ public class DataAssembler {
     private final Collector<DiskMetrics> diskCollector ;
     private final Collector<MemoryMetrics> memoryCollector ;
     private final Collector<LoadAverageMetrics> loadCollector ;
+    private final Collector<NetworkMetrcis> networkMetrcisCollector ;
 
-    public DataAssembler( Collector<CpuMetrics> cpuCollector, Collector<DiskMetrics> diskCollector, Collector<MemoryMetrics> memoryCollector, Collector<LoadAverageMetrics> loadCollector) {
+    public DataAssembler(Collector<CpuMetrics> cpuCollector, Collector<DiskMetrics> diskCollector, Collector<MemoryMetrics> memoryCollector, Collector<LoadAverageMetrics> loadCollector, Collector<NetworkMetrcis> networkMetrcisCollector) {
         this.cpuCollector = cpuCollector;
         this.diskCollector = diskCollector;
         this.memoryCollector = memoryCollector;
         this.loadCollector = loadCollector;
+        this.networkMetrcisCollector = networkMetrcisCollector;
     }
 
 
@@ -36,8 +39,9 @@ public class DataAssembler {
         DiskMetrics disk = diskCollector.collect();
         MemoryMetrics memory = memoryCollector.collect();
         LoadAverageMetrics load = loadCollector.collect();
+        NetworkMetrcis network = networkMetrcisCollector.collect();
 
-        return new ServerMetrics(agentInfo , cpu,disk,memory,load, System.currentTimeMillis());
+        return new ServerMetrics(agentInfo , cpu,disk,memory,load, network, System.currentTimeMillis());
     }
 
     public Collector<CpuMetrics> getCpuCollector() {
@@ -54,5 +58,9 @@ public class DataAssembler {
 
     public Collector<LoadAverageMetrics> getLoadCollector() {
         return  loadCollector;
+    }
+
+    public Collector<NetworkMetrcis> getNetworkMetrcisCollector() {
+        return networkMetrcisCollector;
     }
 }

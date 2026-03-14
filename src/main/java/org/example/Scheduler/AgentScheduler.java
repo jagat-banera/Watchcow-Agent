@@ -3,7 +3,7 @@ package org.example.Scheduler;
 import org.example.Assembler.DataAssembler;
 import org.example.Config.AgentConfig;
 import org.example.Config.PropertyLoader;
-import org.example.Service.SendMetrics;
+import org.example.Service.SendServerMetrics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +34,7 @@ public class AgentScheduler {
 
 
                 // Send the request
-                SendMetrics sendMetrics = new SendMetrics(metrics , new AgentConfig(new PropertyLoader()));
+                SendServerMetrics sendMetrics = new SendServerMetrics(metrics , new AgentConfig(new PropertyLoader()));
                 sendMetrics.SendHttpRequest();
                 logger.debug("Request Sent Successfully");
 

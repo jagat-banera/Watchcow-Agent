@@ -1,9 +1,9 @@
 package org.example.Service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.Assembler.ServerMetrics;
 import org.example.Config.AgentConfig;
+
 import org.example.CustomExceptions.InjectorNotFoundExeption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,19 +15,19 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class SendMetrics {
+public class SendServerMetrics {
 
     private final ServerMetrics metrics ;
     private final AgentConfig agentConfig;
 
-    private static final Logger logger = LoggerFactory.getLogger(SendMetrics.class.toString());
+    private static final Logger logger = LoggerFactory.getLogger(SendServerMetrics.class.toString());
 
-    public SendMetrics(ServerMetrics metrics, AgentConfig agentConfig) {
+    public SendServerMetrics(ServerMetrics metrics, AgentConfig agentConfig) {
         this.metrics = metrics;
         this.agentConfig = agentConfig;
     }
 
-    public void SendHttpRequest() throws IOException, URISyntaxException, InterruptedException, InjectorNotFoundExeption {
+    public void SendHttpRequest() throws InjectorNotFoundExeption , IOException, URISyntaxException, InterruptedException {
 
         HttpClient client = HttpClient.newBuilder().build();
         ObjectMapper mapper = new ObjectMapper();

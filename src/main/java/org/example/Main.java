@@ -7,6 +7,7 @@ import org.example.Collector.CpuCollector;
 import org.example.Collector.DiskCollector;
 import org.example.Collector.LoadCollector;
 import org.example.Collector.MemoryCollector;
+import org.example.Collector.NetworkDataCollector.NetworkCollector;
 import org.example.Config.AgentConfig;
 import org.example.Config.PropertyLoader;
 import org.example.Scheduler.AgentScheduler;
@@ -26,7 +27,8 @@ public class Main {
                 new CpuCollector(),
                 new DiskCollector(),
                 new MemoryCollector(),
-                new LoadCollector()
+                new LoadCollector(),
+                new NetworkCollector()
         );
 
         AgentConfig agentConfig = new AgentConfig(new PropertyLoader());

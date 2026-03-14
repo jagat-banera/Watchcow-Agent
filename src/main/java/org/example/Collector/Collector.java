@@ -1,5 +1,7 @@
 package org.example.Collector;
 
+import java.net.UnknownHostException;
+
 public interface Collector<T> {
-     T collect();
+     T collect() throws UnknownHostException;
 }

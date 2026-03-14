@@ -24,6 +24,7 @@ public class LinuxMemoryExtractor {
 
          OperatingSystemMXBean bean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 
+
          totalMemory = bean.getTotalMemorySize();
          freeMemory = bean.getFreeMemorySize();
 

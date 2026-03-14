@@ -1,8 +1,7 @@
 package org.example.Assembler;
 
+import org.example.Assembler.NetworkDataAssembler.NetworkMetrcis;
 import org.example.Config.AgentInfo;
-
-import java.util.Date;
 
 public class ServerMetrics  {
 
@@ -11,14 +10,16 @@ public class ServerMetrics  {
     private final DiskMetrics disk ;
     private final MemoryMetrics memory ;
     private final LoadAverageMetrics loadAverage ;
+    private final NetworkMetrcis networkMetrcis ;
     private final long collectionTime ;
 
-    public ServerMetrics(AgentInfo agentInfo ,CpuMetrics cpu, DiskMetrics disk, MemoryMetrics memory, LoadAverageMetrics loadAverage, long collectionTime) {
+    public ServerMetrics(AgentInfo agentInfo , CpuMetrics cpu, DiskMetrics disk, MemoryMetrics memory, LoadAverageMetrics loadAverage, NetworkMetrcis networkMetrcis, long collectionTime) {
         this.agentInfo = agentInfo ;
         this.cpu = cpu;
         this.disk = disk;
         this.memory = memory;
         this.loadAverage = loadAverage;
+        this.networkMetrcis = networkMetrcis;
         this.collectionTime = collectionTime;
     }
 
@@ -40,6 +41,10 @@ public class ServerMetrics  {
 
     public LoadAverageMetrics getLoadAverage() {
         return loadAverage;
+    }
+
+    public NetworkMetrcis getNetworkMetrcis() {
+        return networkMetrcis;
     }
 
     public long getCollectionTime() {
